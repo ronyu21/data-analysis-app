@@ -1,0 +1,9 @@
+
+# IDEA IDE properties
+.idea/
+
+# python virtual environment
+env/
+
+# python cache
+__pycache__/
