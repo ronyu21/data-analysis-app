@@ -1,4 +1,6 @@
 from src.FileHandling import load_csv_to_2d_list
+import matplotlib
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
 
@@ -59,3 +61,23 @@ if __name__ == "__main__":
     print('In {}, countries with minimum and maximum CO2 emission levels were [{}] and [{}] respectively.'.format(
         target_year, min_val_country, max_val_country))
     print('Average CO2 emissions in {} were {:0.6f}'.format(target_year, avg_val))
+
+    # day 3 visualize the data for specific country
+    # get target country from  user input
+    target_country = input("Select the country to visualize: ")
+    # get the year data and convert to int
+    year_header = list(map(lambda x: int(x), data_dict.get(header_row_key)))
+    # get the data for the targeted country
+    target_country_data = data_dict.get(target_country)
+
+    if target_country_data is None:
+        print("No emission data for {} available".format(target_country_data))
+        exit(-1)
+
+    # convert string values to float
+    target_country_data = list(map(lambda x: float(x), target_country_data))
+    fig, ax = plt.subplots()
+    ax.plot(year_header, target_country_data)
+
+    ax.set(xlabel='Year', ylabel='Emissions in {}'.format(target_country), title='Year vs Emission in Capita')
+    plt.show()
