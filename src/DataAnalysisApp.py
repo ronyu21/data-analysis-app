@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     # day 3 visualize the data for specific country
     # get target country from  user input
-    target_country = input("Select the country to visualize: ")
+    target_country = input("Select the country to visualize: ").capitalize()
     # get the year data and convert to int
     year_header = list(map(lambda x: int(x), data_dict.get(header_row_key)))
     # get the data for the targeted country
