@@ -1,6 +1,6 @@
-from src.FileHandling import load_csv_to_2d_list
-import matplotlib
 import matplotlib.pyplot as plt
+
+from src.FileHandling import load_csv_to_2d_list
 
 if __name__ == "__main__":
 
@@ -81,3 +81,29 @@ if __name__ == "__main__":
 
     ax.set(xlabel='Year', ylabel='Emissions in {}'.format(target_country), title='Year vs Emission in Capita')
     plt.show()
+    print("\n")
+    # day 4 plotting a comparison graph
+    # get user inputs
+    target_countries = input("Write two comma-separated countries for which you want to visualize data: ").split(",")
+
+    # create temporary plotting data dictionary
+    plotting_data = dict()
+    # iterate through the target countries to obtain data and store in the temporary variable
+    for target in target_countries:
+        # strip the whitespace and capitalize the string
+        striped_capitalized_country_name = target.strip().capitalize()
+        plotting_data.setdefault(striped_capitalized_country_name,
+                                 list(map(lambda x: float(x), data_dict.get(striped_capitalized_country_name))))
+
+    # create a new plot
+    fig, ax = plt.subplots()
+    # plotting data
+    for data in plotting_data.keys():
+        ax.plot(year_header, plotting_data.get(data), label=data)
+
+    # add legend to plot
+    ax.legend()
+    ax.set(xlabel='Year', ylabel='Emissions in', title='Year vs Emission in Capita')
+    # display the plot
+    plt.show()
+
