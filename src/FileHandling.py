@@ -27,3 +27,9 @@ def load_csv_to_2d_list_plain(filename: str) -> List[List]:
             result_list.append(data)
 
     return result_list
+
+
+def save_data_to_csv(filename: str, data_list: List[str]) -> None:
+    with open(filename, 'wt') as csv_file:
+        csv_file.writelines(data_list)
+

@@ -1,6 +1,8 @@
+from typing import List
+
 import matplotlib.pyplot as plt
 
-from src.FileHandling import load_csv_to_2d_list
+from src.FileHandling import load_csv_to_2d_list, save_data_to_csv
 
 if __name__ == "__main__":
 
@@ -107,3 +109,35 @@ if __name__ == "__main__":
     # display the plot
     plt.show()
 
+    # day 5 exporting subset of data
+    # get user input
+    target_countries = input("Write up to three comma-separated countries for which you want to extract data: ").split(
+        ",")
+
+    # ensure user only enter maximum of 3 countries
+    if len(target_countries) > 3:
+        print("ERR: Sorry, at most 3 countries can be entered.")
+        exit(-1)
+
+    # temporary data storage variable
+    extracted_data = []
+    # get and prepare headers
+    header = data_dict.get(header_row_key)
+    header.insert(0, header_row_key)
+    extracted_data.append(','.join(header) + '\n')
+    countries = None
+    # get the country data
+    for target in target_countries:
+        striped_capitalized_country_name = target.strip().capitalize()
+        data: List = data_dict.get(striped_capitalized_country_name)
+        data.insert(0, striped_capitalized_country_name)
+        if countries is None:
+            countries = striped_capitalized_country_name
+        else:
+            countries += ', ' + striped_capitalized_country_name
+        extracted_data.append(','.join(data) + '\n')
+
+    # call data save function
+    save_data_to_csv('./resource/Emissions_subset.csv', extracted_data)
+
+    print("Data successfully extracted for countries {} saved into file Emissions_subset.csv".format(countries))
